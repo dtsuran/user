@@ -6,44 +6,45 @@
 <body>
 <nav th:replace="fragments/main :: navigation"></nav>
 
-<h1>All Users</h1>
+<div class="section">
+    <h3 class="title is-4">All Users</h3>
 
-<table class="table table-striped">
-    <thead>
-    <tr>
-        <th>#ID</th>
-        <th>Name</th>
-        <th>Email</th>
-        <th>framework</th>
-        <th>Action</th>
-    </tr>
-    </thead>
+    <table class="table is-striped">
+        <thead>
+        <tr>
+            <th>#ID</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>framework</th>
+            <th>Action</th>
+        </tr>
+        </thead>
 
-    <tr th:each="user : ${users}">
-        <td th:text="${user.id}"></td>
-        <td th:text="${user.name}"></td>
-        <td th:text="${user.email}"></td>
-        <td>
-            <th:block th:each="framework,iterStat : ${user.framework}">
-                [[${framework}]]<th:block th:if="${not iterStat.last}">,</th:block>
-            </th:block>
-        </td>
-        <td>
-            <button class="btn btn-info" th:onclick="|location.href='/users/${user.id}'|">
-                Query
-            </button>
-            <button class="btn btn-primary" th:onclick="|location.href='/users/${user.id}/update'|">
-                Update
-            </button>
-            <button class="btn btn-danger" th:onclick="|this.disabled=true;post('/users/${user.id}/delete')|">
-                Delete
-            </button>
-        </td>
-    </tr>
-</table>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.email}"></td>
+            <td>
+                <th:block th:each="framework,iterStat : ${user.framework}">
+                    [[${framework}]]
+                    <th:block th:if="${not iterStat.last}">,</th:block>
+                </th:block>
+            </td>
+            <td>
+                <button class="button is-info" th:onclick="|location.href='/users/${user.id}'|">
+                    Query
+                </button>
+                <button class="button is-primary" th:onclick="|location.href='/users/${user.id}/update'|">
+                    Update
+                </button>
+                <button class="button is-danger" th:onclick="|this.disabled=true;post('/users/${user.id}/delete')|">
+                    Delete
+                </button>
+            </td>
+        </tr>
+    </table>
 
+    <footer th:replace="fragments/main :: footer"></footer>
 </div>
-
-<footer th:replace="fragments/main :: footer"></footer>
 </body>
 </html>
