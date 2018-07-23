@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/main :: header">
+</head>
+<body>
+<nav th:replace="fragments/main :: navigation"></nav>
+
+<h1>All Users</h1>
+
+<table class="table table-striped">
+    <thead>
+    <tr>
+        <th>#ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>framework</th>
+        <th>Action</th>
+    </tr>
+    </thead>
+
+    <tr th:each="user : ${users}">
+        <td th:text="${user.id}"></td>
+        <td th:text="${user.name}"></td>
+        <td th:text="${user.email}"></td>
+        <td>
+            <th:block th:each="framework,iterStat : ${user.framework}">
+                [[${framework}]]<th:block th:if="${not iterStat.last}">,</th:block>
+            </th:block>
+        </td>
+        <td>
+            <button class="btn btn-info" th:onclick="|location.href='/users/${user.id}'|">
+                Query
+            </button>
+            <button class="btn btn-primary" th:onclick="|location.href='/users/${user.id}/update'|">
+                Update
+            </button>
+            <button class="btn btn-danger" th:onclick="|this.disabled=true;post('/users/${user.id}/delete')|">
+                Delete
+            </button>
+        </td>
+    </tr>
+</table>
+
+</div>
+
+<footer th:replace="fragments/main :: footer"></footer>
+</body>
+</html>

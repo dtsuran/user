@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="header">
+    <title>Spring MVC Form Handling Example</title>
+    <link th:href="@{/core/css/hello.css}" rel="stylesheet"/>
+    <link th:href="@{/core/css/bootstrap.min.css}" rel="stylesheet"/>
+</head>
+<body>
+<nav th:fragment="navigation" class="navbar navbar-inverse ">
+    <div class="container">
+        <div class="navbar-header">
+            <a class="navbar-brand" th:href="@{/}">Spring MVC Form</a>
+        </div>
+        <div id="navbar">
+            <ul class="nav navbar-nav navbar-right">
+                <li class="active"><a th:href="@{/user/add}">Add User</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<footer th:fragment="footer">
+    <div class="container">
+        <hr>
+        <footer>
+            <p>&copy; Dmytro Tsuran 2018</p>
+        </footer>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+    <script th:src="@{/core/js/hello.js}"></script>
+    <script th:src="@{/core/js/bootstrap.min.js}"></script>
+</footer>
+</body>
+</html>
