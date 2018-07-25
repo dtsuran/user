@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/main :: header">
+</head>
+<body>
+<nav th:replace="fragments/main :: navigation"></nav>
+
+<div class="section">
+
+    <h3 class="title is-4" th:text="${userForm['new']} ? 'Add User' : 'Update User'"></h3>
+
+    <br/>
+
+    <form action="#" th:action="@{/users}" th:object="${userForm}" method="post">
+        <input type="hidden" th:field="*{id}"/>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Name</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                        <input type="text" class="input" placeholder="Name" th:field="*{name}"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-user"></i>
+                        </span>
+                        <p class="help is-danger">This name is invalid</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Email</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                        <input type="text" class="input" placeholder="Email" th:field="*{email}"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-envelope"></i>
+                        </span>
+                    <p class="help is-danger">This email is invalid</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Password</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                        <input type="password" class="input" th:field="*{password}"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <p class="help is-danger">This password is invalid</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Confirm Password</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded has-icons-left">
+                        <input type="text" class="input" th:field="*{confirmPassword}"/>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-lock"></i>
+                        </span>
+                        <p class="help is-danger">This password is invalid</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Address</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded">
+                        <textarea class="textarea" rows="5" th:field="*{address}"></textarea>
+                        <p class="help is-danger">This address is invalid</p>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Newsletter</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded">
+                        <input id="newsletter" type="checkbox" th:field="*{newsletter}"/>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Framework</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p th:each="item : ${frameworkList}" class="control is-expanded">
+                        <label class="checkbox">
+                            <input type="checkbox" th:field="*{framework}" th:value="${item}"/>
+                            [[${item}]]
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Sex</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded">
+                        <label class="radio">
+                            <input th:field="*{sex}" type="radio" name="gender" value="M">
+                            Male
+                        </label>
+                        <label class="radio">
+                            <input th:field="*{sex}" type="radio" name="gender" value="F">
+                            Female
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+                <label class="label">Number</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control is-expanded">
+                        <label th:each="num : ${numberList}" class="radio">
+                            <input type="radio" name="number" th:field="*{number}" th:value="${num}">
+                            [[${num}]]
+                        </label>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Country</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control has-icons-left">
+                    <span class="select">
+                        <select th:field="*{country}">
+                            <option th:each="country : ${countryList.keySet()}" th:value="${country}"
+                                    th:text="${countryList.get(country)}">Ukraine</option>
+                        </select>
+                        <span class="icon is-small is-left">
+                            <i class="fas fa-globe"></i>
+                        </span>
+                    </span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label is-normal">
+                <label class="label">Skills</label>
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <p class="control">
+                    <div class="select is-multiple">
+                        <select th:field="*{skill}" multiple="true" size="5">
+                            <option th:each="skill : ${javaSkillList}" th:value="${skill}" th:text="${skill}">Java
+                            </option>
+                        </select>
+                    </div>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="field is-horizontal">
+            <div class="field-label">
+            </div>
+            <div class="field-body">
+                <div class="field">
+                    <div class="control">
+                        <button th:text="${userForm['new']} ? 'Add' : 'Update'" class="button is-primary"/>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+    
+    <footer th:replace="fragments/main :: footer"></footer>
+</div>
+</body>
+</html>

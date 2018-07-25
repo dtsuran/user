@@ -25,6 +25,10 @@ public class User {
     @ElementCollection(targetClass = String.class)
     private List<String> skill;
 
+    public boolean isNew() {
+        return this.id == null;
+    }
+
     public Integer getId() {
         return id;
     }
