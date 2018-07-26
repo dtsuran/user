@@ -10,7 +10,7 @@ import org.springframework.validation.Validator;
 @Component
 public class UserFormValidator implements Validator {
 
-    private EmailValidator emailValidator;
+    private EmailValidator emailValidator = EmailValidator.getInstance();
 
     @Override
     public boolean supports(Class<?> clazz) {

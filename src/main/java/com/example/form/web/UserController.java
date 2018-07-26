@@ -6,9 +6,14 @@ import com.example.form.validator.UserFormValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
@@ -21,19 +26,39 @@ public class UserController {
     private UserFormValidator validator;
 
     @InitBinder
-    protected void initBinder(WebDataBinder binder){
+    protected void initBinder(WebDataBinder binder) {
         binder.setValidator(validator);
     }
 
     @GetMapping("/")
-    public String index(){
+    public String index() {
         return "redirect:/users";
     }
 
     @GetMapping("/users")
-    public String showAllUsers(Model model){
+    public String showAllUsers(Model model) {
         model.addAttribute("users", userDao.findAll());
         return "users/list";
+    }
+
+    @PostMapping("/users")
+    public String saveOrUpdateUser(@ModelAttribute("userForm") @Validated User user,
+                                   BindingResult result,
+                                   Model model,
+                                   RedirectAttributes redirectAttributes) {
+        if (result.hasErrors()){
+            populateDefaultModel(model);
+            return "users/userform";
+        } else {
+            redirectAttributes.addFlashAttribute("css", "success");
+            if (user.isNew())
+                redirectAttributes.addFlashAttribute("msg", "User added successfully!");
+            else
+                redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
+            userDao.save(user);
+
+            return "redirect:/users/" + user.getId();
+        }
     }
 
     @GetMapping("/users/add")

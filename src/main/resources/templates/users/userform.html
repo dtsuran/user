@@ -13,6 +13,7 @@
     <br/>
 
     <form action="#" th:action="@{/users}" th:object="${userForm}" method="post">
+
         <input type="hidden" th:field="*{id}"/>
 
         <div class="field is-horizontal">
@@ -26,7 +27,7 @@
                         <span class="icon is-small is-left">
                             <i class="fas fa-user"></i>
                         </span>
-                        <p class="help is-danger">This name is invalid</p>
+                        <p th:if="${#fields.hasErrors('name')}" th:errors="*{name}" class="help is-danger">This name is invalid</p>
                     </p>
                 </div>
             </div>
@@ -43,7 +44,7 @@
                         <span class="icon is-small is-left">
                             <i class="fas fa-envelope"></i>
                         </span>
-                    <p class="help is-danger">This email is invalid</p>
+                    <p th:if="${#fields.hasErrors('email')}" th:errors="*{email}" class="help is-danger">This email is invalid</p>
                     </p>
                 </div>
             </div>
@@ -60,7 +61,7 @@
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
-                        <p class="help is-danger">This password is invalid</p>
+                        <p th:if="${#fields.hasErrors('password')}" th:errors="*{password}" class="help is-danger">This password is invalid</p>
                     </p>
                 </div>
             </div>
@@ -73,11 +74,11 @@
             <div class="field-body">
                 <div class="field">
                     <p class="control is-expanded has-icons-left">
-                        <input type="text" class="input" th:field="*{confirmPassword}"/>
+                        <input type="password" class="input" th:field="*{confirmPassword}"/>
                         <span class="icon is-small is-left">
                             <i class="fas fa-lock"></i>
                         </span>
-                        <p class="help is-danger">This password is invalid</p>
+                        <p th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}" class="help is-danger">This password is invalid</p>
                     </p>
                 </div>
             </div>
@@ -91,7 +92,7 @@
                 <div class="field">
                     <p class="control is-expanded">
                         <textarea class="textarea" rows="5" th:field="*{address}"></textarea>
-                        <p class="help is-danger">This address is invalid</p>
+                        <p th:if="${#fields.hasErrors('address')}" th:errors="*{address}" class="help is-danger">This address is invalid</p>
                     </p>
                 </div>
             </div>
@@ -207,7 +208,7 @@
             <div class="field-body">
                 <div class="field">
                     <div class="control">
-                        <button th:text="${userForm['new']} ? 'Add' : 'Update'" class="button is-primary"/>
+                        <button type="submit" th:text="${userForm['new']} ? 'Add' : 'Update'" class="button is-primary"/>
                     </div>
                 </div>
             </div>
