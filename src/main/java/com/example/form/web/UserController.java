@@ -9,10 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.InitBinder;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
@@ -81,6 +78,19 @@ public class UserController {
         populateDefaultModel(model);
 
         return "users/userform";
+    }
+
+    @GetMapping("users/{id}")
+    public String showUser(@PathVariable("id") int id, Model model){
+
+        User user = userDao.findById(id).orElse(null);
+        if (user == null) {
+            model.addAttribute("css", "is-danger");
+            model.addAttribute("msg", "User not found");
+        }
+
+        model.addAttribute("user", user);
+        return "users/show";
     }
 
     private void populateDefaultModel(Model model) {

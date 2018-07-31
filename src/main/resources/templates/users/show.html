@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/main :: header">
+</head>
+<body>
+<nav th:replace="fragments/main :: navigation"></nav>
+
+<div class="section">
+    <div class="container">
+
+        <div th:if="${user == null}" class="notification" th:classappend="${css}">
+            <button class="delete"></button>
+            [[${msg}]]
+        </div>
+
+        <h3 class="title is-4">User Detail</h3>
+
+        <div class="columns">
+            <div class="column is-2">
+                ID
+            </div>
+            <div class="column is-10" th:text="${user?.id}">
+                test@email.com
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Name
+            </div>
+            <div class="column is-10" th:text="${user?.name}">
+                Jhon
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Email
+            </div>
+            <div class="column is-10" th:text="${user?.email}">
+                test@email.com
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Address
+            </div>
+            <div class="column is-10" th:text="${user?.address}">
+                Main street
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Newsletter
+            </div>
+            <div class="column is-10" th:text="${user?.newsletter}">
+                Yes
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Web Frameworks
+            </div>
+            <div class="column is-10" th:text="${user?.framework}">
+                Spring
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Sex
+            </div>
+            <div class="column is-10" th:text="${user?.sex}">
+                Male
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Number
+            </div>
+            <div class="column is-10" th:text="${user?.number}">
+                123456789
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Country
+            </div>
+            <div class="column is-10" th:text="${user?.country}">
+                USA
+            </div>
+        </div>
+
+        <div class="columns">
+            <div class="column is-2">
+                Skill
+            </div>
+            <div class="column is-10" th:text="${user?.skill}">
+                Java
+            </div>
+        </div>
+
+        <footer th:replace="fragments/main :: footer"></footer>
+    </div>
+</div>
+</body>
+</html>
