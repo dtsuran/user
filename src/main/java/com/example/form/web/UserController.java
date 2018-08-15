@@ -43,7 +43,7 @@ public class UserController {
                                    BindingResult result,
                                    Model model,
                                    RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()){
+        if (result.hasErrors()) {
             populateDefaultModel(model);
             return "users/userform";
         } else {
@@ -80,8 +80,19 @@ public class UserController {
         return "users/userform";
     }
 
+    @PostMapping("users/{id}/delete")
+    public String deleteUser(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
+
+        userDao.deleteById(id);
+
+        redirectAttributes.addFlashAttribute("css", "is-primary");
+        redirectAttributes.addFlashAttribute("msg", "User is deleted");
+
+        return "redirect:/users";
+    }
+
     @GetMapping("users/{id}")
-    public String showUser(@PathVariable("id") int id, Model model){
+    public String showUser(@PathVariable("id") int id, Model model) {
 
         User user = userDao.findById(id).orElse(null);
         if (user == null) {

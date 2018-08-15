@@ -8,6 +8,12 @@
 
 <div class="section">
     <div class="container">
+
+        <div th:if="${msg != null}" class="notification" th:classappend="${css}">
+            <button class="delete"></button>
+            [[${msg}]]
+        </div>
+
         <h3 class="title is-4">All Users</h3>
 
         <table class="table is-striped">
@@ -38,7 +44,7 @@
                     <button class="button is-primary" th:onclick="|location.href='/users/${user.id}/update'|">
                         Update
                     </button>
-                    <button class="button is-danger" th:onclick="|this.disabled=true;post('/users/${user.id}/delete')|">
+                    <button class="button is-danger" th:onclick="|post('/users/${user.id}/delete')|">
                         Delete
                     </button>
                 </td>
