@@ -14,8 +14,12 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.*;
 
+import static org.springframework.web.servlet.view.UrlBasedViewResolver.REDIRECT_URL_PREFIX;
+
 @Controller
 public class UserController {
+
+    private static final String USERS_USERFORM = "users/userform";
 
     @Autowired
     private UserDao userDao;
@@ -45,7 +49,7 @@ public class UserController {
                                    RedirectAttributes redirectAttributes) {
         if (result.hasErrors()) {
             populateDefaultModel(model);
-            return "users/userform";
+            return USERS_USERFORM;
         } else {
             redirectAttributes.addFlashAttribute("css", "success");
             if (user.isNew())
@@ -54,7 +58,7 @@ public class UserController {
                 redirectAttributes.addFlashAttribute("msg", "User updated successfully!");
             userDao.save(user);
 
-            return "redirect:/users/" + user.getId();
+            return REDIRECT_URL_PREFIX + "/users/" + user.getId();
         }
     }
 
@@ -77,7 +81,17 @@ public class UserController {
 
         populateDefaultModel(model);
 
-        return "users/userform";
+        return USERS_USERFORM;
+    }
+
+    @GetMapping("users/{id}/update")
+    public String showUpdateUserForm(@PathVariable("id") int id, Model model) {
+        User user = userDao.findById(id).orElse(null);
+        model.addAttribute("userForm", user);
+
+        populateDefaultModel(model);
+
+        return USERS_USERFORM;
     }
 
     @PostMapping("users/{id}/delete")
@@ -88,7 +102,7 @@ public class UserController {
         redirectAttributes.addFlashAttribute("css", "is-primary");
         redirectAttributes.addFlashAttribute("msg", "User is deleted");
 
-        return "redirect:/users";
+        return REDIRECT_URL_PREFIX + "/users";
     }
 
     @GetMapping("users/{id}")

@@ -129,6 +129,8 @@
                                 [[${item}]]
                             </label>
                         </p>
+                        <p th:if="${#fields.hasErrors('framework')}" th:errors="*{framework}"
+                           class="help is-danger">Please select at least two frameworks!</p>
                     </div>
                 </div>
             </div>
@@ -148,6 +150,8 @@
                                 <input th:field="*{sex}" type="radio" name="gender" value="F">
                                 Female
                             </label>
+                            <p th:if="${#fields.hasErrors('sex')}" th:errors="*{sex}"
+                               class="help is-danger">Sex is empty</p>
                         </p>
                     </div>
                 </div>
@@ -164,6 +168,8 @@
                                 <input type="radio" name="number" th:field="*{number}" th:value="${num}">
                                 [[${num}]]
                             </label>
+                            <p th:if="${#fields.hasErrors('number')}" th:errors="*{number}"
+                               class="help is-danger">Number is empty</p>
                         </p>
                     </div>
                 </div>
@@ -202,6 +208,8 @@
                                 <option th:each="skill : ${javaSkillList}" th:value="${skill}" th:text="${skill}">Java
                                 </option>
                             </select>
+                            <p th:if="${#fields.hasErrors('skill')}" th:errors="*{skill}"
+                               class="help is-danger">Skill is empty</p>
                         </div>
                         </p>
                     </div>
